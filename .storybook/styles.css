@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@import '../projects/ui/styles/theme.css';
+
+/* Storybook renders library source directly, so point the JIT scanner at it. */
+@source '../projects/ui/src';
+
+html {
+  font-family: var(--font-sans);
+}

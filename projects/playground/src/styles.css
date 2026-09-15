@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@import '../../ui/styles/theme.css';
+
+/* Scan the library source so its utility classes survive Tailwind's JIT purge. */
+@source '../../ui/src';
+
+html {
+  font-family: var(--font-sans);
+}

@@ -1,59 +1,54 @@
-# VfUiComponents
+# vf-UI-components
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+Monorepo for `@vodafone/ui-components` — the shared Angular + Tailwind component library.
 
-## Development server
+## Layout
 
-To start a local development server, run:
-
-```bash
-ng serve
+```
+projects/
+  ui/                     publishable library (@vodafone/ui-components)
+    src/lib/<component>/  component + variants + stories + spec, colocated
+    src/lib/utils/        cn() class merge helper
+    styles/theme.css      design tokens (Tailwind @theme) — shipped to consumers
+    src/public-api.ts     the only public surface
+  playground/             local sandbox app for integration checks
+.storybook/               documentation surface
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Rules that keep the library healthy:
 
-## Code scaffolding
+- Anything not exported from `public-api.ts` is private and may change freely.
+- Components are attribute-based on native elements (`<button vfButton>`), so
+  accessibility comes from the host element rather than being re-implemented.
+- Styling is Tailwind utilities driven by `class-variance-authority`; consumer
+  classes always win via `tailwind-merge`.
+- No design values are hard-coded — they live in `styles/theme.css` as tokens.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Requirements
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Node version is pinned in `.nvmrc`:
 
 ```bash
-ng build
+nvm use
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Commands
 
-## Running unit tests
+| Command                   | Purpose                                 |
+| ------------------------- | --------------------------------------- |
+| `npm run storybook`       | Component docs at http://localhost:6006 |
+| `npm start`               | Playground app                          |
+| `npm test`                | Unit tests (Vitest)                     |
+| `npm run lint`            | ESLint incl. template a11y rules        |
+| `npm run build`           | Build the library to `dist/ui`          |
+| `npm run build:storybook` | Static Storybook to `dist/storybook`    |
+| `npm run release`         | Build then publish `dist/ui`            |
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Adding a component
 
 ```bash
-ng test
+npx ng g component <name> --project ui --export
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Then colocate `<name>.variants.ts`, `<name>.stories.ts` and `<name>.spec.ts`
+next to it, and export it from `src/public-api.ts`.

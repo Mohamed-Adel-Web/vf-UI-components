@@ -1,0 +1,9 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ui",
+  "assets": ["./styles/**/*.css", "./README.md"],
+  "allowedNonPeerDependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@vodafone/ui-components",
+  "version": "0.0.1",
+  "description": "Vodafone Angular component library built with Tailwind CSS.",
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "@angular/common": "^22.1.0",
+    "@angular/core": "^22.1.0",
+    "@angular/forms": "^22.1.0",
+    "tailwindcss": "^4.1.12"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0",
+    "tslib": "^2.3.0"
+  },
+  "exports": {
+    "./styles/theme.css": {
+      "style": "./styles/theme.css",
+      "default": "./styles/theme.css"
+    }
+  },
+  "sideEffects": false
+}

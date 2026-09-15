@@ -1,0 +1,5 @@
+dist
+coverage
+storybook-static
+.angular
+package-lock.json
