@@ -2,13 +2,14 @@
 const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
+const { defineConfig } = require('eslint/config');
 
 // eslint-plugin-storybook ships ESM-only; this config file is loaded via require(),
 // so it must be pulled in with a dynamic import instead.
 module.exports = (async () => {
   const storybook = (await import('eslint-plugin-storybook')).default;
 
-  return tseslint.config(
+  return defineConfig(
     {
       ignores: ['dist/**', 'coverage/**', 'storybook-static/**', '.angular/**'],
     },
@@ -16,9 +17,9 @@ module.exports = (async () => {
       files: ['**/*.ts'],
       extends: [
         eslint.configs.recommended,
-        ...tseslint.configs.recommended,
-        ...tseslint.configs.stylistic,
-        ...angular.configs.tsRecommended,
+        tseslint.configs.recommended,
+        tseslint.configs.stylistic,
+        angular.configs.tsRecommended,
       ],
       processor: angular.processInlineTemplates,
       rules: {
@@ -71,7 +72,10 @@ module.exports = (async () => {
     },
 
     // Stories are documentation, not shipped code.
-    ...storybook.configs['flat/recommended'],
+    // eslint-plugin-storybook's flat configs predate ESLint's stricter `defineConfig`
+    // types, so its rule/plugin shapes don't structurally match; cast to `any` here
+    // rather than losing type-checking on the rest of the file.
+    .../** @type {any[]} */ (storybook.configs['flat/recommended']),
     {
       files: ['**/*.stories.ts'],
       rules: {
