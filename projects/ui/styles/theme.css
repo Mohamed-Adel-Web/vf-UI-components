@@ -88,3 +88,18 @@
   transition-duration: var(--duration-base);
   transition-timing-function: var(--ease-emphasized);
 }
+
+/* Collapsing/expanding the sidebar animates its width only. */
+@utility sidebar-nav-transition {
+  transition-property: width;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-emphasized);
+}
+
+/* Accordion panels animate open/closed via grid-template-rows (0fr -> 1fr), so height
+   never needs to be measured in JS and `auto` heights still animate smoothly. */
+@utility accordion-content-transition {
+  transition-property: grid-template-rows;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-emphasized);
+}

@@ -2,11 +2,11 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 /** Scroll container. Required for `stickyHeader`, which needs a scrolling ancestor. */
 export const tableContainerVariants = cva(
-  'rounded-surface border-ink-200 dark:border-ink-800 relative w-full overflow-auto border',
+  'rounded-surface border-ink-200 dark:border-ink-800 bg-ink-50 dark:bg-ink-950 relative w-full overflow-auto border',
 );
 
 export const tableVariants = cva(
-  'text-ink-950 dark:text-ink-50 w-full border-collapse text-left text-sm',
+  'bg-ink-50 text-ink-950 dark:bg-ink-950 dark:text-ink-50 w-full border-collapse text-left text-sm',
 );
 
 export const tableRowVariants = cva(
@@ -96,8 +96,10 @@ export const tableHeadVariants = cva(
   },
 );
 
+// Hand-drawn (not native `accent-color`) so unchecked/checked/indeterminate all match the
+// table's own surface tokens in dark mode instead of the browser's light UA checkbox chrome.
 export const tableCheckboxVariants = cva(
-  'focus-ring accent-brand-600 size-4 shrink-0 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50',
+  "focus-ring relative inline-flex size-4 shrink-0 cursor-pointer appearance-none items-center justify-center rounded border transition-colors border-ink-300 bg-white dark:border-ink-700 dark:bg-ink-950 checked:border-brand-600 checked:bg-brand-600 indeterminate:border-brand-600 indeterminate:bg-brand-600 dark:checked:border-brand-600 dark:checked:bg-brand-600 dark:indeterminate:border-brand-600 dark:indeterminate:bg-brand-600 before:content-[''] before:hidden indeterminate:before:block before:h-0.5 before:w-2 before:rounded-full before:bg-white after:content-[''] after:hidden checked:after:block after:h-2 after:w-1 after:-translate-y-px after:rotate-45 after:border-b-2 after:border-r-2 after:border-white disabled:cursor-not-allowed disabled:opacity-50",
 );
 
 export type TableDensity = NonNullable<VariantProps<typeof tableCellVariants>['density']>;
